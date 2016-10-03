@@ -36,7 +36,7 @@ app.post('/room', function(req, res){
 		vidid: vidID
 	};
 	rooms.push(newRoom);
-	res.render('room_viewer.html', {
+	res.render('room_viewer_host.html', {
 		pageHeader: req.body.room,
 		roomID: vidID
 	});
@@ -48,7 +48,7 @@ app.get('/room/:roomid', function(req, res){
 		if(req.params.roomid === rooms[i].vidid)
 			roomName = rooms[i].name;
 	}
-	res.render('room_viewer.html', {
+	res.render('room_viewer_join.html', {
 		pageHeader: roomName,
 		roomID: req.params.roomid
 	});
@@ -56,16 +56,15 @@ app.get('/room/:roomid', function(req, res){
 
 io.on('connection', function(socket){
 	console.log('a user connected');
-	socket.emit('new connection', "user name");
 
-	socket.on('chat message', function(msg){
-    	io.emit('chat message', msg);
-		//console.log('message: ' + msg);
-	});
 	socket.on('current time', function(msg){
-    	//io.emit('chat message', msg);
+    	io.emit('set time', msg);
 		console.log('time: ' + msg);
 	});
-	//io.emit('new connection', "user name");
+	
+	socket.on('new connection', function(msg){
+    	io.emit('thyme', msg);
+	});
+
 });
 
