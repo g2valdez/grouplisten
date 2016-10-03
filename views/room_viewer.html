@@ -50,7 +50,7 @@
 			<div class="col-sm-8">
 				<iframe id="player"
 				        width="640" height="360"
-				        src="https://www.youtube.com/embed/Vl2Rmw5hsao?enablejsapi=1"
+				        src="https://www.youtube.com/embed/<%= roomID %>?enablejsapi=1"
 				        autoplay="1"
 				></iframe>
 		    	<script>
@@ -75,8 +75,8 @@
 
 					// 4. The API will call this function when the video player is ready.
 					function onPlayerReady(event) {
-						console.log("I'm playing");
-					  event.target.playVideo();
+						console.log("I'm ready");
+					  //event.target.playVideo();
 					}
 
 					// 5. The API calls this function when the player's state changes.
@@ -86,7 +86,15 @@
 					    console.log(player.getCurrentTime());
 					    socket.emit('current time', player.getCurrentTime());
 					}
+
+					socket.on('new connection', function(msg){
+						console.log(player.getCurrentTime());
+					});
+
 		    	</script>
+		    	<div>
+		    		<p> Share this room with your friends: http://localhost:3000/room/<%= roomID %> </p>
+		    	</div>
 
 			</div>
 			<div class="col-sm-4">
