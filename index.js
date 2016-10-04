@@ -54,6 +54,13 @@ app.get('/room/:roomid', function(req, res){
 	});
 });
 
+//app.get('/join_room', function(req, res){
+//	res.render('join_room.html', {
+//		pageHeader: 'join.room'
+//		roomList: rooms
+//	});
+//});
+
 io.on('connection', function(socket){
 	console.log('a user connected');
 
