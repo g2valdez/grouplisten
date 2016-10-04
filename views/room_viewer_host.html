@@ -82,11 +82,21 @@
 					//    The function indicates that when playing a video (state=1),
 					//    the player should play for six seconds and then stop.
 					function onPlayerStateChange(event) {
-					    console.log(player.getCurrentTime());
-					    socket.emit('current time', player.getCurrentTime());
+					    if (event.data == YT.PlayerState.PLAYING)
+					    	socket.emit('pause play video',{
+					    		control:0,
+					    		time:player.getCurrentTime()
+					    	});
+				          	//emit 'playing' signal
+				      	else if(event.data == YT.PlayerState.PAUSED)
+				      		socket.emit('pause play video',{
+					    		control:1,
+					    		time:player.getCurrentTime()
+					    	});
+				      		//emit pause
 					}
 
-					socket.on('thyme', function(msg){
+					socket.on('get time', function(msg){
 						socket.emit('current time', player.getCurrentTime());
 					});
 

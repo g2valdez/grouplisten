@@ -63,7 +63,11 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('new connection', function(msg){
-    	io.emit('thyme', msg);
+    	io.emit('get time', msg);
+	});
+
+	socket.on('pause play video', function(msg){
+    	io.emit('control video', msg);
 	});
 
 });
