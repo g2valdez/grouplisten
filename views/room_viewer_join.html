@@ -82,9 +82,9 @@
 					//    The function indicates that when playing a video (state=1),
 					//    the player should play for six seconds and then stop.
 					function onPlayerStateChange(event) {
-					    if(event.data == YT.PlayerState.PLAYING){
-					    	
-					    }
+						if(player.getCurrentTime() == 0){
+							player.pauseVideo();
+						}
 					}
 
 					socket.on('set time', function(msg){
