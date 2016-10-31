@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 
 var rooms = [];
 
+app.set('port', (process.env.PORT || 5000));
+
 app.set('view options', {layout: false});
 app.engine('html', require('ejs').renderFile);
 
@@ -12,8 +14,8 @@ app.use(require('express').static(__dirname));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-http.listen(3000, function(){
-	console.log('listening on port 3000');
+http.listen(app.get('port'), function(){
+	console.log('listening on port ', app.get('port'));
 });
 
 app.get('/', function(req, res){
